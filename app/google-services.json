@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1010242779530",
+    "firebase_url": "https://fantom-64d09-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "fantom-64d09",
+    "storage_bucket": "fantom-64d09.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010242779530:android:b474f4ebe356b691e43073",
+        "android_client_info": {
+          "package_name": "com.example.fantom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010242779530-9ubd7a35q5ula09l5ba1k0n7j2lfdtb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fantom",
+            "certificate_hash": "ecd482acd9dfd50e12d909e1a6cb45ac3a155dbc"
+          }
+        },
+        {
+          "client_id": "1010242779530-7ansdtetirk361qg1slml82pr94252pn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDanIcM2P-VtyOSN60xQHc934EgpHiiFeQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010242779530-7ansdtetirk361qg1slml82pr94252pn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

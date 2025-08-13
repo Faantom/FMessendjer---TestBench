@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Fantom</string>
+    <string name="navigation_drawer_open">Открыть меню</string>
+    <string name="navigation_drawer_close">Закрыть меню</string>
+    <string name="profile_image">Аватар пользователя</string>
+    <string name="pinned">Закреплено</string>
+    <!-- Ваш действительный client ID -->
+    <string name="default_web_client_id">1010242779530-7ansdtetirk361qg1slml82pr94252pn.apps.googleusercontent.com</string>
+</resources>
