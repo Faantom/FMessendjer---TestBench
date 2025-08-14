@@ -1,92 +1,66 @@
 package com.example.fantom
 
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
-import androidx.compose.ui.unit.dp
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 
-class UserListActivity : ComponentActivity() {
-    private val database = Firebase.database
-    private val usersRef = database.getReference("users")
+class UserListActivity : AppCompatActivity() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var userAdapter: UserAdapter
+    private val userList = mutableListOf<User>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            UserListScreen(
-                usersRef = usersRef,
-                onError = { message -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show() }
-            )
-        }
-    }
-}
+        setContentView(R.layout.activity_user_list)
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun UserListScreen(
-    usersRef: DatabaseReference,
-    onError: (String) -> Unit
-) {
-    var users by remember { mutableStateOf(emptyList<User>()) }
-    var isLoading by remember { mutableStateOf(true) }
+        // Настройка Toolbar с кнопкой "назад"
+        val toolbar: Toolbar = findViewById(R.id.user_list_toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Пользователи"
 
-    DisposableEffect(usersRef) {
-        val listener = object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userList = mutableListOf<User>()
-                for (child in snapshot.children) {
-                    child.getValue(User::class.java)?.let { userList.add(it) }
-                }
-                users = userList
-                isLoading = false
-            }
+        recyclerView = findViewById(R.id.user_list_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-            override fun onCancelled(error: DatabaseError) {
-                onError("Ошибка загрузки данных: ${error.message}")
-                isLoading = false
-            }
-        }
-        usersRef.addValueEventListener(listener)
-        onDispose { usersRef.removeEventListener(listener) }
+        userAdapter = UserAdapter(userList)
+        recyclerView.adapter = userAdapter
+
+        loadUsers()
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        when {
-            isLoading -> CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            users.isEmpty() -> Text(
-                "Список пользователей пуст",
-                modifier = Modifier.align(Alignment.Center),
-                style = MaterialTheme.typography.bodyLarge
-            )
-            else -> LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                items(users, key = { it.uid }) { user ->
-                    // Выводим данные пользователя напрямую
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        Text(
-                            "Имя: ${user.displayName}",
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Text(
-                            "Email: ${user.email}",
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                    Divider(modifier = Modifier.padding(vertical = 8.dp))
-                }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                // Обработка нажатия на кнопку "назад"
+                onBackPressed()
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun loadUsers() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users")
+            .get()
+            .addOnSuccessListener { result ->
+                userList.clear()
+                for (document in result) {
+                    val user = document.toObject(User::class.java)
+                    userList.add(user)
+                }
+                userAdapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { exception ->
+                Log.w("UserListActivity", "Error getting documents: ", exception)
+                Toast.makeText(this, "Ошибка загрузки списка пользователей", Toast.LENGTH_SHORT).show()
+            }
     }
 }

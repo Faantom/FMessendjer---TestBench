@@ -51,23 +51,21 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
-    // Firebase BOM + Firebase Auth, Database, Storage
+    // Firebase BOM + Firebase Auth, Firestore, Storage
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-database-ktx")
-    implementation("com.google.firebase:firebase-storage-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx") // Зависимость для Firestore
+    implementation("com.google.firebase:firebase-storage-ktx") // Зависимость для Firebase Storage
     implementation("com.google.android.gms:play-services-auth:21.2.0")
 
-    // Coil (опционально для загрузки изображений)
+    // Coil и Glide (для загрузки изображений)
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    ksp("com.github.bumptech.glide:ksp:4.16.0")
 
     // Room — runtime и compiler (через KSP)
     implementation("androidx.room:room-runtime:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
-
-    // Glide (теперь использует KSP)
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    ksp("com.github.bumptech.glide:ksp:4.16.0")
 
     // Инструменты отладки Jetpack Compose
     debugImplementation("androidx.compose.ui:ui-tooling")

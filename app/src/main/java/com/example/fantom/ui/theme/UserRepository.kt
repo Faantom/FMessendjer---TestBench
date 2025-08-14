@@ -1,13 +1,13 @@
 package com.example.fantom
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.util.Log
-import org.json.JSONObject
+import com.google.firebase.firestore.FirebaseFirestore
 
 class UserRepository(private val context: Context) {
 
-    private val prefs: SharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+    private val db = FirebaseFirestore.getInstance()
+    private val usersCollection = db.collection("users")
 
     interface UserCallback {
         fun onUserLoaded(user: User?)
@@ -15,39 +15,39 @@ class UserRepository(private val context: Context) {
     }
 
     fun saveUser(user: User, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
-        try {
-            val editor = prefs.edit()
-            val json = JSONObject().apply {
-                put("uid", user.uid)
-                put("displayName", user.displayName)
-                put("email", user.email)
+        val userMap = hashMapOf(
+            "uid" to user.uid,
+            "displayName" to user.displayName,
+            "email" to user.email,
+            "avatarUrl" to user.avatarUrl,
+            "status" to user.status
+        )
+
+        usersCollection.document(user.uid)
+            .set(userMap)
+            .addOnSuccessListener {
+                onSuccess()
             }
-            editor.putString(user.uid, json.toString())
-            editor.apply()
-            onSuccess()
-        } catch (e: Exception) {
-            Log.e("UserRepository", "saveUser error", e)
-            onFailure(e)
-        }
+            .addOnFailureListener { e ->
+                Log.e("UserRepository", "saveUser error", e)
+                onFailure(e)
+            }
     }
 
     fun loadUser(uid: String, callback: UserCallback) {
-        try {
-            val jsonString = prefs.getString(uid, null)
-            if (jsonString != null) {
-                val json = JSONObject(jsonString)
-                val user = User(
-                    uid = json.getString("uid"),
-                    displayName = json.getString("displayName"),
-                    email = json.getString("email")
-                )
-                callback.onUserLoaded(user)
-            } else {
-                callback.onUserLoaded(null)
+        usersCollection.document(uid)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val user = document.toObject(User::class.java)
+                    callback.onUserLoaded(user)
+                } else {
+                    callback.onUserLoaded(null)
+                }
             }
-        } catch (e: Exception) {
-            Log.e("UserRepository", "loadUser error", e)
-            callback.onError(e)
-        }
+            .addOnFailureListener { e ->
+                Log.e("UserRepository", "loadUser error", e)
+                callback.onError(e)
+            }
     }
 }
