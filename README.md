@@ -33,10 +33,10 @@ Documentation:
 ___
 
 >Документация и материалы
->- [Таблица баг-репортов (Google Sheets)](https://docs.google.com/spreadsheets/>d/1Iz6Rsjowxb90SncK2HupRERNpcmU1bm1AnPJQPT1ioc/edit?gid=0#gid=0)  
->- [Таблица тест-кейсов (Google Sheets)](https://docs.google.com/spreadsheets/>d/1GZWwvXqeRGl5te1XiYMPnUKBMT-yNva_LlR9hTZ3KNo/edit?gid=0#gid=0)  
->- [План тестирования (Google Docs)](https://docs.google.com/document/d/>182_NdzVgEtg7Ra8kAc13id0Yxfr526uSYBH7mnEamMM/edit?tab=t.0)  
->- [Отчёт о результатах тестирования (Google Docs)](https://docs.google.com/>document/d/1MqK7XRLrmOZ5WX83vEIbbJ-sXwWaNpoUyL1NAJB9Mdo/edit?tab=t.0)  
->- [Чек-листы тестирования (Google Docs)](https://docs.google.com/document/d/>1CSSylMkmuX8BDfa_uPjnMVaslJiHHGCYBVNRquWmluc/edit?tab=t.0)  
->- [Отчёт о результатах тестирования (Google Docs)](https://docs.google.com/>document/d/1Ih_BKWRZACuOFDfXB2U-QKWkRv66Dd0e03plJcVnoNY/edit?tab=t.>0#heading=h.mx6bhgq5rwin)  
+>- [Таблица баг-репортов (Google Sheets)](https://docs.google.com/spreadsheets/d/1Iz6Rsjowxb90SncK2HupRERNpcmU1bm1AnPJQPT1ioc/edit?gid=0#gid=0)  
+>- [Таблица тест-кейсов (Google Sheets)](https://docs.google.com/spreadsheets/d/1GZWwvXqeRGl5te1XiYMPnUKBMT-yNva_LlR9hTZ3KNo/edit?gid=0#gid=0)  
+>- [План тестирования (Google Docs)](https://docs.google.com/document/d/1CSSylMkmuX8BDfa_uPjnMVaslJiHHGCYBVNRquWmluc/edit?tab=t.0#heading=h.a9heoqj569ke)  
+>- [Отчёт о результатах тестирования (Google Docs)](https://docs.google.com/document/d/1Ih_BKWRZACuOFDfXB2U-QKWkRv66Dd0e03plJcVnoNY/edit?tab=t.0#heading=h.mx6bhgq5rwin)  
+>- [Чек-листы тестирования (Google Docs)](https://docs.google.com/document/d/182_NdzVgEtg7Ra8kAc13id0Yxfr526uSYBH7mnEamMM/edit?tab=t.0)  
+>- [Отчёт о результатах тестирования (Google Docs)](https://docs.google.com/document/d/1Ih_BKWRZACuOFDfXB2U-QKWkRv66Dd0e03plJcVnoNY/edit?tab=t.0#heading=h.mx6bhgq5rwin)  
 ___
